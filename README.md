@@ -21,8 +21,8 @@ Then the words of K(1) or the "round 1" key, i.e. w(4), w(5), w(6) and w(7) can 
 w(i) = w(i - 4) ⊕ w(i - 1) (where ⊕ represents the XOR operation)
 
 There is an exception, however. When i is a multiple of 4, e.g. 4, we have to process the second operand in the XOR operation i.e. w(i - 1) with certain permutation and substitution steps, referred to as the 
-procedures RotWord, SubWord and Rcon. To compute K(2) = [w(8), w(9), w(10), w(11)], we apply the same XOR operations and permutations and substitutions to K(1) = [w(4), w(5), w(6), w(7)] that we applied to K(0)
-when computing K(1). This process is repeated 10 times to generate a total of 11 keys. The procedures RotWord, SubWord and Rcon are explained below.
+functions RotWord, SubWord and Rcon. To compute K(2) = [w(8), w(9), w(10), w(11)], we apply the same XOR operations and permutations and substitutions to K(1) = [w(4), w(5), w(6), w(7)] that we applied to K(0)
+when computing K(1). This process is repeated 10 times to generate a total of 11 keys. The functions RotWord, SubWord and Rcon are explained below.
 
 1) RotWord
    RotWord simply takes a 4-byte (32-bit) word represented as e.g. [a(0), a(1), a(2), a(3)] and returns [a(1), a(2), a(3), a(0)].
@@ -33,13 +33,13 @@ when computing K(1). This process is repeated 10 times to generate a total of 11
    Rcon XORs the input 4-byte word with a round constant word array, which takes the form [rc(i), 0, 0, 0] where i is the round number.
 
 After the first key K(0) has been XOR'd with the plaintext P and the 10 keys K(1), K(2), ..., K(10) have been generated, 10 rounds of substitution and permutation are applied to the output of "round 0" i.e. 
-P' = P ⊕ K(0). In the first 9 rounds, four procedures SubBytes, ShiftRows, MixColumns and AddRoundKey are applied, while the last round only differs in that the MixColumns step is not applied. These procedures
+P' = P ⊕ K(0). In the first 9 rounds, four functions SubBytes, ShiftRows, MixColumns and AddRoundKey are applied, while the last round only differs in that the MixColumns step is not applied. These functions
 are explained below:
 
 1) SubBytes
-   The procedure is similar to SubWord except that the input is not a 4-byte word, but a 4×4 matrix. Each element of the matrix is passed as input to the S-box and replaced by the output.
+   This function is similar to SubWord except that the input is not a 4-byte word, but a 4×4 matrix. Each element of the matrix is passed as input to the S-box and replaced by the output.
 2) ShiftRows
-   This procedure is a cyclical rotation. The steps involved are:
+   This function implements a cyclical rotation. The steps involved are:
    i) The first row is left as is.
    ii) The second row is shifted left by 1 byte.
    iii) The third row is shifted left by 2 bytes.
@@ -47,4 +47,5 @@ are explained below:
 3) MixColumns multiplies each column of the 4×4 input matrix with a 4×4 constant matrix. Here, the multiplication operation is performed on a special type of set and is thus not the same as regular multiplication.
 4) AddRoundKey just XOR's the key for the current round i, i.e. K(i), with the output of the previous round.
 
-The final output of the algorithm is a 4×4 matrix that is converted back into text by the program to reveal the final output. 
+The final output of the algorithm is a 4×4 matrix that is converted back into text by the program to reveal the final output. The program implements all the functions discussed above as well as a few helper 
+functions. 
