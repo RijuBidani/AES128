@@ -4,7 +4,7 @@ The process of encryption or decryption involves 10 rounds of substitutions and 
 
 Key expansion involves operations on each column/32-bit word of the key from the previous round in the current round. The 10 subkeys are computed as follows:
 
-For the very first round, the operations involved are performed on the input key. The round 1 key is computed by computing each column one by one. If the input key is referred to as K(0) and split into four 32-bit words each referred to as w(i) where i starts from 0, then we can represent the input key as follows:
+For round 1, the operations involved are performed on the input key. The round 1 key is computed by computing each column one by one. If the input key is referred to as K(0) and split into four 32-bit words each referred to as w(i) where i starts from 0, then we can represent the input key as follows:
 
 K(0) = [w(0), w(1), w(2), w(3)]
 
@@ -12,7 +12,7 @@ Then the words of K(1) or the "round 1" key, i.e. w(4), w(5), w(6) and w(7) can 
 
 w(i) = w(i - 4) ⊕ w(i - 1) (where ⊕ represents the XOR operation)
 
-When i is a multiple of 4, we have to process w(i - 1) with the functions RotWord, SubWord and Rcon. To compute K(2) = [w(8), w(9), w(10), w(11)], we apply the same XOR operations and (optionally) functions to K(1) = [w(4), w(5), w(6), w(7)] that we applied to K(0) when computing K(1). This process is repeated 10 times to generate a total of 11 keys. The functions RotWord, SubWord and Rcon are explained below.
+When i is a multiple of 4, we have to process w(i - 1) with the functions RotWord, SubWord and Rcon. To compute K(2) = [w(8), w(9), w(10), w(11)], we apply the same operations to K(1) = [w(4), w(5), w(6), w(7)]. This process is repeated 10 times to generate a total of 11 keys. The functions RotWord, SubWord and Rcon are explained below.
 
 1) RotWord:
    RotWord simply takes a 4-byte (32-bit) word represented as e.g. [a(0), a(1), a(2), a(3)] and returns [a(1), a(2), a(3), a(0)].
