@@ -49,4 +49,4 @@ function is the same as the one in the encryption process, it just takes a diffe
    This function applies the exact inverse of the substitution appplied SubWord or SubBytes.
 3) InvMixColumns multiplies each column of the input 4×4 matrix with a different 4×4 constant matrix, not the one used in MixColumns.
 
-The output is again a 4×4 matrix that is, in a final step, converted into the decrypted text. A few helper functions are employed during decryption as well.
+The output is again a 4×4 matrix that is, in a final step, converted into the decrypted text. A few helper functions are employed during decryption as well. Functions that are common between encryption and decryption are stored in a class called Methods.java, which is extended by both AES128Encryption.java and AES128Decryption.java.
